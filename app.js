@@ -3,6 +3,9 @@ const express = require('express')
 const app = express()
 const port = process.env.PORT || 80
 const fs = require('fs');
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   var array = [];
@@ -23,8 +26,9 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', (req, res) => {
-  var title = req.query.title;
-  var body = req.query.body;
+  var oBody = req.body;
+  var title = oBody.title;
+  var body = oBody.body;
 
   var array = [];
   var text = fs.readFileSync('notes.txt', 'utf8', function(err,data){
@@ -62,7 +66,8 @@ app.post('/', (req, res) => {
 })
 
 app.delete('/', (req, res) => {
-  var title = req.query.title;
+  var oBody = req.body;
+  var title = oBody.title;
   var array = [];
   var text = fs.readFileSync('notes.txt', 'utf8', function(err,data){
       if (!err) {
