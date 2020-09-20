@@ -100,7 +100,7 @@ app.delete('/', (req, res) => {
   }
 })
 
-app.get('/id', (req, res) => {
+app.post('/id', (req, res) => {
   var id = req.body.title;
   var array = [];
   var text = fs.readFileSync('notes.txt', 'utf8', function(err,data){
