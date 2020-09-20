@@ -100,6 +100,27 @@ app.delete('/', (req, res) => {
   }
 })
 
+app.get('/id', (req, res) => {
+  var id = req.body.title;
+  var array = [];
+  var text = fs.readFileSync('notes.txt', 'utf8', function(err,data){
+      if (!err) {
+        return data;
+          // array = JSON.parse(data);
+          // console.log("parsed data: " + array);
+      } else {
+          console.log(err);
+      }
+  });
+  if(text){
+    console.log(text);
+    array = JSON.parse(text);
+  }
+
+  var note = array.find(note => note.id == id);
+  res.send(note.text);
+})
+
 app.listen(port, () => {
   console.log('App listening on port : ', port);
 })
